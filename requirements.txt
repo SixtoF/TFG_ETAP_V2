@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+pydantic-settings
+celery
+redis
+croniter
+python-multipart
+alembic
+# Añade aqui las de IA si usas OpenAI o LangChain
+openai
+langchain

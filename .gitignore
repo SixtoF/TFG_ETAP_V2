@@ -1,0 +1,19 @@
+# Python - Entornos virtuales y cache
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Docker - Archivos temporales de Celery y logs
+celerybeat-schedule
+*.log
+
+# Datos persistentes 
+runtime_data/
+
+# SEGURIDAD 
+.env
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
