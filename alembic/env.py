@@ -22,6 +22,8 @@ from app.models.execution_log import ExecutionLog  # noqa: F401
 from app.models.job_result import JobResult  # noqa: F401
 from app.models.approval import Approval  # noqa: F401
 from app.models.scheduled_task import ScheduledTask  # noqa: F401
+from app.models.role import Role  # noqa: F401
+from app.models.user import User  # noqa: F401
 
 # Objeto de configuracion de Alembic que accede a los valores del archivo .ini
 config = context.config

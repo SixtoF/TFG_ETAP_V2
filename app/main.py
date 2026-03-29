@@ -9,7 +9,7 @@ from fastapi import FastAPI
 from app.api.router import api_router
 
 # Inicializacion de la aplicacion con metadatos para la documentacion automatica (Swagger)
-app = FastAPI(title="ETAP API", version="0.6.0")
+app = FastAPI(title="ETAP API", version="0.7.0")
 
 # Esto permite que todos los endpoints comiencen por /api/v1/...
 app.include_router(api_router, prefix="/api/v1")

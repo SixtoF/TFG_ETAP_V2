@@ -1,35 +1,34 @@
-"""
-SERVICIO DE GESTION DE APROBACIONES (ApprovalService).
-Controla el ciclo de vida de las solicitudes de autorizacion.
-Permite transicionar trabajos de riesgo alto desde un estado de pausa 
-hacia la ejecucion final o el rechazo definitivo tras supervision humana.
-"""
-from datetime import datetime
+# ==============================================================================
+# SERVICIO DE GESTION DE APROBACIONES (APPROVAL SERVICE)
+# Este servicio implementa la logica para el manejo de tareas de alto riesgo,
+# gestionando el ciclo de vida de una aprobacion desde su creacion hasta
+# su resolucion (aprobado/rechazado) por un usuario administrador.
+# ==============================================================================
 
+from datetime import datetime
 from sqlalchemy.orm import Session
 
 from app.repositories.approval_repository import ApprovalRepository
-from app.repositories.command_repository import CommandRepository
 from app.repositories.execution_log_repository import ExecutionLogRepository
-from app.repositories.job_repository import JobRepository
 from app.repositories.job_result_repository import JobResultRepository
 
 
 class ApprovalService:
-    # Inicializa todos los componentes necesarios para la auditoria y control
     def __init__(self):
+        # Inicializacion de los repositorios necesarios para la persistencia
         self.approval_repository = ApprovalRepository()
-        self.job_repository = JobRepository()
-        self.command_repository = CommandRepository()
         self.log_repository = ExecutionLogRepository()
         self.job_result_repository = JobResultRepository()
 
-    # Evalua si un Job debe ser pausado para revision humana
     def create_approval_if_needed(self, db: Session, job):
+        """
+        Determina si un job requiere aprobacion humana basandose en el riesgo.
+        Si el riesgo es 'high', bloquea la ejecucion y crea una solicitud.
+        """
         if job.risk_level != "high":
             return None
 
-        # Crea el registro de aprobacion en estado pendiente
+        # Creacion de la solicitud de aprobacion en estado pendiente
         approval = self.approval_repository.create(
             db=db,
             job_id=job.id,
@@ -37,7 +36,7 @@ class ApprovalService:
             status="pending"
         )
 
-        # Actualiza el estado del Job y del Comando para reflejar la espera
+        # Actualizacion de estados del job y comando para reflejar el bloqueo
         job.status = "approval_pending"
         db.add(job)
 
@@ -45,7 +44,7 @@ class ApprovalService:
         command.status = "approval_pending"
         db.add(command)
 
-        # Registra el evento en la bitacora de ejecucion
+        # Registro en el historial de logs del sistema
         self.log_repository.create(
             db=db,
             job_id=job.id,
@@ -58,18 +57,22 @@ class ApprovalService:
             }
         )
 
-        db.flush() # Persiste los cambios en la transaccion actual
+        db.flush()  # Sincroniza con la BD sin cerrar la transaccion
         return approval
 
-    # Metodos de consulta delegados al repositorio
     def list_approvals(self, db: Session, limit: int = 50, offset: int = 0, status: str | None = None):
+        """Lista las aprobaciones con soporte para paginacion y filtrado."""
         return self.approval_repository.list(db, limit=limit, offset=offset, status=status)
 
     def get_approval_by_id(self, db: Session, approval_id):
+        """Recupera una aprobacion especifica por su identificador unico."""
         return self.approval_repository.get_by_id(db, approval_id)
 
-    # Autoriza la ejecucion de un trabajo bloqueado
-    def approve(self, db: Session, approval_id, resolved_by: str, resolved_by_name: str, resolution_comment: str | None):
+    def approve(self, db: Session, approval_id, current_user, resolution_comment: str | None):
+        """
+        Procesa la aprobacion de una solicitud. 
+        Vincula al usuario administrador real que toma la decision.
+        """
         approval = self.approval_repository.get_by_id(db, approval_id)
         if not approval:
             raise ValueError("Approval no encontrada")
@@ -77,15 +80,15 @@ class ApprovalService:
         if approval.status != "pending":
             raise ValueError("La aprobacion ya fue resuelta")
 
-        # Registra la decision del supervisor
+        # Registro de la decision del administrador
         approval.status = "approved"
         approval.resolved_at = datetime.utcnow()
-        approval.resolved_by = resolved_by
-        approval.resolved_by_name = resolved_by_name
+        approval.resolved_by_user_id = current_user.id
+        approval.resolved_by_name = current_user.full_name
         approval.resolution_comment = resolution_comment
         self.approval_repository.save(db, approval)
 
-        # Prepara el Job para que el ExecutionService pueda procesarlo
+        # Desbloqueo del job y el comando para que puedan ser ejecutados
         job = approval.job
         job.status = "ready_to_execute"
         db.add(job)
@@ -94,7 +97,7 @@ class ApprovalService:
         command.status = "ready_to_execute"
         db.add(command)
 
-        # Logs dobles: uno para la aprobacion y otro para el cambio de estado del Job
+        # Logs de auditoria detallando quien autorizo la accion
         self.log_repository.create(
             db=db,
             job_id=job.id,
@@ -102,26 +105,21 @@ class ApprovalService:
             message="Approval approved",
             details_json={
                 "approval_id": str(approval.id),
-                "resolved_by": resolved_by,
-                "resolved_by_name": resolved_by_name,
+                "resolved_by_user_id": str(current_user.id),
+                "resolved_by_name": current_user.full_name,
                 "resolution_comment": resolution_comment
             }
         )
 
-        self.log_repository.create(
-            db=db,
-            job_id=job.id,
-            level="INFO",
-            message="Job approved and ready to execute",
-            details_json={"job_status": job.status}
-        )
-
-        db.commit() # Cierre definitivo de la autorizacion
+        db.commit()
         db.refresh(approval)
         return approval
 
-    # Cancela definitivamente la ejecucion de un trabajo bloqueado
-    def reject(self, db: Session, approval_id, resolved_by: str, resolved_by_name: str, resolution_comment: str | None):
+    def reject(self, db: Session, approval_id, current_user, resolution_comment: str | None):
+        """
+        Procesa el rechazo de una solicitud.
+        Cancela la ejecucion del job definitivamente.
+        """
         approval = self.approval_repository.get_by_id(db, approval_id)
         if not approval:
             raise ValueError("Approval no encontrada")
@@ -129,15 +127,15 @@ class ApprovalService:
         if approval.status != "pending":
             raise ValueError("La aprobacion ya fue resuelta")
 
-        # Registra el rechazo
+        # Registro del rechazo
         approval.status = "rejected"
         approval.resolved_at = datetime.utcnow()
-        approval.resolved_by = resolved_by
-        approval.resolved_by_name = resolved_by_name
+        approval.resolved_by_user_id = current_user.id
+        approval.resolved_by_name = current_user.full_name
         approval.resolution_comment = resolution_comment
         self.approval_repository.save(db, approval)
 
-        # Marca Job y Comando como rechazados (finalizados con error)
+        # Finalizacion del job con estado rechazado
         job = approval.job
         job.status = "rejected"
         job.finished_at = datetime.utcnow()
@@ -147,20 +145,7 @@ class ApprovalService:
         command.status = "rejected"
         db.add(command)
 
-        self.log_repository.create(
-            db=db,
-            job_id=job.id,
-            level="WARNING",
-            message="Approval rejected",
-            details_json={
-                "approval_id": str(approval.id),
-                "resolved_by": resolved_by,
-                "resolved_by_name": resolved_by_name,
-                "resolution_comment": resolution_comment
-            }
-        )
-
-        # Genera un resultado final negativo para cerrar el ciclo de vida
+        # Registro del resultado negativo en el repositorio de resultados
         self.job_result_repository.upsert(
             db=db,
             job_id=job.id,
@@ -169,8 +154,8 @@ class ApprovalService:
             result_json={
                 "status": "rejected",
                 "reason": "Aprobacion rechazada",
-                "resolved_by": resolved_by,
-                "resolved_by_name": resolved_by_name,
+                "resolved_by_user_id": str(current_user.id),
+                "resolved_by_name": current_user.full_name,
                 "resolution_comment": resolution_comment
             }
         )

@@ -8,6 +8,11 @@ redis
 croniter
 python-multipart
 alembic
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-jose[cryptography]
+python-multipart
+email-validator
 # Añade aqui las de IA si usas OpenAI o LangChain
 openai
 langchain

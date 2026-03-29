@@ -3,6 +3,7 @@ ESQUEMAS DE APROBACION (Approval Schemas).
 Define la estructura para la visualizacion de estados de seguridad y los 
 datos requeridos para la toma de decisiones manuales sobre Jobs bloqueados.
 """
+
 from datetime import datetime
 from uuid import UUID
 
@@ -10,41 +11,38 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class ApprovalResponse(BaseModel):
-    # Identificador unico de la solicitud de aprobacion
-    id: UUID
+    # Respuesta serializada de aprobacion: Lo que el sistema muestra al consultar un bloqueo.
     
-    # Referencia al trabajo que requiere supervision
+    # id y job_id: Identificadores unicos de la aprobacion y del trabajo vinculado.
+    id: UUID
     job_id: UUID
     
-    # Estado actual (pending, approved, rejected)
+    # status: Estado actual (ej. 'pending', 'approved', 'rejected').
     status: str
     
-    # Motivo tecnico o de negocio por el cual se detuvo la ejecucion
+    # reason: Texto que explica por que este trabajo requiere supervision humana.
     reason: str
     
-    # Fecha de creacion de la solicitud
+    # Tiempos de control: Fecha de peticion y fecha en la que se tomo la decision.
     requested_at: datetime
-    
-    # Datos de resolucion (pueden ser None si aun no se ha decidido)
     resolved_at: datetime | None
-    resolved_by: str | None
+    
+    # Auditoria real: Se añade el ID del usuario de la BD que firmo la resolucion.
+    resolved_by_user_id: UUID | None
+    
+    # Auditoria visible: Nombre del usuario en el momento de la firma (ej. 'Admin Carlos').
     resolved_by_name: str | None
+    
+    # Comentario final: Explicacion opcional de por que se aprobo o rechazo el trabajo.
     resolution_comment: str | None
 
-    # Habilita la lectura directa desde el modelo de SQLAlchemy
+    # Configuracion para mapear desde los modelos de SQLAlchemy.
     model_config = ConfigDict(from_attributes=True)
 
 
 class ApprovalDecisionRequest(BaseModel):
-    """
-    Estructura requerida para resolver una aprobacion pendiente.
-    Utiliza Field para garantizar que los datos del supervisor sean validos.
-    """
-    # ID tecnico del supervisor (obligatorio)
-    resolved_by: str = Field(..., min_length=1, max_length=100, example="manager_001")
+    # Payload para aprobar o rechazar: Lo que el administrador envia al pulsar el boton.
     
-    # Nombre visible del responsable (obligatorio)
-    resolved_by_name: str = Field(..., min_length=1, max_length=255, example="Juan Perez")
-    
-    # Comentario opcional para justificar la decision
+    # resolution_comment: El unico dato que el usuario escribe; el resto lo saca la API del Token JWT.
+    # El valor por defecto es None por si el administrador no quiere dejar ningun comentario.
     resolution_comment: str | None = Field(default=None, example="Aprobado para continuar")
