@@ -14,4 +14,4 @@ Para ejecutar el proyecto en local:
 
 1. Clonar el repositorio:
    
-   git clone [https://github.com/SixtoF/TFG_ETAP.git](https://github.com/SixtoF/TFG_ETAP_V2.git)
+   git clone [https://github.com/SixtoF/TFG_ETAP_V2.git]
