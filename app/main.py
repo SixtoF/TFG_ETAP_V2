@@ -1,23 +1,31 @@
 """
 Punto de entrada principal de la aplicacion FastAPI.
-Este archivo inicializa la API, configura el enrutamiento modular
-y define los endpoints de control de estado (health checks).
+Configura la seguridad CORS para permitir la conexion con el Frontend.
 """
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware # Importacion necesaria
 
-# Importacion del enrutador central que agrupa todos los modulos (jobs, tasks, etc.)
+# Importacion del enrutador central
 from app.api.router import api_router
 
-# Inicializacion de la aplicacion con metadatos para la documentacion automatica (Swagger)
+# Inicializacion de la aplicacion
 app = FastAPI(title="ETAP API", version="0.7.0")
 
-# Esto permite que todos los endpoints comiencen por /api/v1/...
+# --- CONFIGURACION DE CORS (FUNDAMENTAL PARA EL FRONTEND) ---
+app.add_middleware(
+    CORSMiddleware,
+    # Permite que el puerto 3000 del frontend acceda a la API
+    allow_origins=["http://localhost:3000"], 
+    allow_credentials=True,
+    # Permite todos los metodos (GET, POST, PUT, DELETE, etc.)
+    allow_methods=["*"],
+    # Permite todas las cabeceras (incluyendo Authorization para el JWT)
+    allow_headers=["*"],
+)
+
+# Inclusio de rutas
 app.include_router(api_router, prefix="/api/v1")
 
-# Sirve para verificar que el servicio esta levantado y operativo
 @app.get("/health")
 def health():
-    """
-    Retorna un estado simple para monitoreo del sistema.
-    """
     return {"status": "ok"}
