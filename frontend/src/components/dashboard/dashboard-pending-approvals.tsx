@@ -21,7 +21,7 @@ export default function DashboardPendingApprovals({ approvals }: Props) {
     <section className="rounded-2xl bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold">Approvals pendientes</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Approvals pendientes</h2>
           <p className="mt-1 text-sm text-slate-600">
             Solicitudes pendientes de decisión.
           </p>

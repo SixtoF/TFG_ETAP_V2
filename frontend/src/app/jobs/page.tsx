@@ -32,7 +32,7 @@ export default function JobsPage() {
     <AppShell>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold">Jobs</h1>
+          <h1 className="text-2xl font-semibold text-slate-900">Jobs</h1>
           <p className="mt-1 text-sm text-slate-600">
             Lista de trabajos generados por ETAP.
           </p>

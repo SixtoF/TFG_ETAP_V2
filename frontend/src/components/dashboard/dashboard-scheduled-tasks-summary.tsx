@@ -20,7 +20,7 @@ export default function DashboardScheduledTasksSummary({
     <section className="rounded-2xl bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold">Scheduled tasks</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Scheduled tasks</h2>
           <p className="mt-1 text-sm text-slate-600">
             Resumen de automatizaciones configuradas.
           </p>

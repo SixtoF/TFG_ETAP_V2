@@ -59,7 +59,7 @@ export default function CreateScheduledTaskForm() {
 
   return (
     <section className="rounded-2xl bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-semibold">Nueva scheduled task</h2>
+      <h2 className="text-lg font-semibold text-slate-900">Nueva scheduled task</h2>
       <p className="mt-1 text-sm text-slate-600">
         Crea una automatización programada usando expresión cron.
       </p>
@@ -67,7 +67,7 @@ export default function CreateScheduledTaskForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="mt-5 space-y-4">
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <label className="mb-1 block text-sm font-medium">Nombre</label>
+            <label className="mb-1 block text-sm font-medium text-slate-900">Nombre</label>
             <input
               className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-500"
               {...register("name", { required: "El nombre es obligatorio" })}
@@ -94,7 +94,7 @@ export default function CreateScheduledTaskForm() {
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium">Descripción</label>
+          <label className="mb-1 block text-sm font-medium text-slate-900">Descripción</label>
           <input
             className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-500"
             {...register("description")}
@@ -102,7 +102,7 @@ export default function CreateScheduledTaskForm() {
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium">Command text</label>
+          <label className="mb-1 block text-sm font-medium text-slate-900">Command text</label>
           <textarea
             className="min-h-24 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-500"
             {...register("command_text", {
@@ -120,7 +120,7 @@ export default function CreateScheduledTaskForm() {
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium">Cron expression</label>
+          <label className="mb-1 block text-sm font-medium text-slate-900">Cron expression</label>
           <input
             placeholder="0 18 * * 1-5"
             className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-500"

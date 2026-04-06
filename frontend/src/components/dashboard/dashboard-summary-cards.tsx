@@ -50,7 +50,7 @@ export default function DashboardSummaryCards({ summary }: Props) {
   return (
     <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       {cards.map((card) => (
-        <article key={card.title} className="rounded-2xl bg-white p-5 shadow-sm">
+        <article key={card.title} className="rounded-2xl bg-white p-5 shadow-sm border border-slate-200/70">
           <h2 className="text-sm font-medium text-slate-500">{card.title}</h2>
           <p className="mt-3 text-3xl font-semibold text-slate-900">{card.value}</p>
           <div className="mt-4">

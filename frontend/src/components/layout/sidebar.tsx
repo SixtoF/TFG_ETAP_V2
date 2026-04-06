@@ -16,7 +16,7 @@ export default function Sidebar() {
   return (
     <aside className="hidden w-64 border-r border-slate-200 bg-white md:flex md:flex-col">
       <div className="border-b border-slate-200 px-6 py-5">
-        <h2 className="text-xl font-semibold">ETAP</h2>
+        <h2 className="text-xl font-semibold text-slate-900">ETAP</h2>
         <p className="mt-1 text-sm text-slate-500">Automation Platform</p>
       </div>
 

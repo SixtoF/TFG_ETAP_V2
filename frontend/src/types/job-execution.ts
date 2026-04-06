@@ -1,11 +1,6 @@
-export type ExecutionLogLevel = "INFO" | "WARNING" | "ERROR";
-
-export type ExecutionLog = {
-  id: number;
+export type JobExecutionEnqueueResponse = {
   job_id: string;
-  job_step_id: string | null;
-  level: ExecutionLogLevel;
+  status: string;
   message: string;
-  details_json: Record<string, unknown> | null;
-  created_at: string;
+  celery_task_id: string;
 };

@@ -22,7 +22,7 @@ export default function DashboardRecentJobs({ jobs }: Props) {
     <section className="rounded-2xl bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold">Últimos jobs</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Últimos jobs</h2>
           <p className="mt-1 text-sm text-slate-600">
             Trabajos recientes del sistema.
           </p>

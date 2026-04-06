@@ -36,7 +36,7 @@ export default function ApprovalsPage() {
     <AppShell>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold">Approvals</h1>
+          <h1 className="text-2xl font-semibold text-slate-900">Approvals</h1>
           <p className="mt-1 text-sm text-slate-600">
             Gestión de aprobaciones pendientes y resueltas.
           </p>
