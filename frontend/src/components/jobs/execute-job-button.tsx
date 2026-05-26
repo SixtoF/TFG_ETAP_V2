@@ -53,7 +53,7 @@ export default function ExecuteJobButton({ jobId, status }: Props) {
             : "bg-slate-900 hover:bg-slate-800"
         }`}
       >
-        {isPending ? "Encolando..." : "Ejecutar job"}
+        {isPending ? "Encolando..." : "Ejecutar trabajo"}
       </button>
 
       {!canExecute && (
@@ -64,13 +64,13 @@ export default function ExecuteJobButton({ jobId, status }: Props) {
 
       {isSuccess && (
         <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-          {data?.message ?? "Job encolado correctamente"}
+          {data?.message ?? "trabajo encolado correctamente"}
         </div>
       )}
 
       {isError && (
         <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          {error instanceof Error ? error.message : "Error al ejecutar job"}
+          {error instanceof Error ? error.message : "Error al ejecutar trabajo"}
         </div>
       )}
     </div>

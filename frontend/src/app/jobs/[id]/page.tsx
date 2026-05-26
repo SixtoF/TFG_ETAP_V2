@@ -56,7 +56,7 @@ const {
       <div className="space-y-6">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900">Detalle de Job</h1>
+            <h1 className="text-2xl font-semibold text-slate-900">Detalle de Trabajo</h1>
             <p className="mt-1 text-sm text-slate-600">
               Vista detallada del trabajo, ejecución y trazabilidad.
             </p>
@@ -72,14 +72,14 @@ const {
 
         {isLoading && (
           <div className="rounded-2xl bg-white p-6 shadow-sm">
-            <p className="text-sm text-slate-600">Cargando detalle del job...</p>
+            <p className="text-sm text-slate-600">Cargando detalle del trabajo...</p>
           </div>
         )}
 
         {isError && (
           <div className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm">
             <p className="text-sm text-red-700">
-              {error instanceof Error ? error.message : "Error al cargar el job"}
+              {error instanceof Error ? error.message : "Error al cargar el trabajo"}
             </p>
           </div>
         )}
@@ -88,7 +88,7 @@ const {
           <>
             {job.status === "running" && (
               <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
-              Este job se está ejecutando en este momento...
+              Este trabajo se está ejecutando en este momento...
               </div>
             )}
             <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -100,7 +100,7 @@ const {
               </div>
 
               <div className="rounded-2xl bg-white p-5 shadow-sm">
-                <h2 className="text-sm font-medium text-slate-500">Intent</h2>
+                <h2 className="text-sm font-medium text-slate-500">Intento</h2>
                 <p className="mt-2 text-slate-800">{job.intent_name}</p>
               </div>
 
@@ -134,7 +134,7 @@ const {
                 <div>
                   <h2 className="text-lg font-semibold text-slate-900">Acciones</h2>
                   <p className="mt-1 text-sm text-slate-600">
-                    Ejecuta manualmente el job si su estado lo permite.
+                    Ejecuta manualmente el trabajo si su estado lo permite.
                   </p>
                 </div>
               </div>
@@ -145,11 +145,11 @@ const {
             </section>
 
             <section className="rounded-2xl bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">Steps</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Pasos del Trabajo</h2>
 
               {job.steps.length === 0 ? (
                 <p className="mt-4 text-sm text-slate-600">
-                  Este job no tiene steps.
+                  Este trabajo no tiene pasos.
                 </p>
               ) : (
                 <div className="mt-4 overflow-x-auto">
@@ -190,7 +190,7 @@ const {
               isLoading={logsLoading}
               isError={logsError}
               errorMessage={
-                logsErrorValue instanceof Error ? logsErrorValue.message : "Error al cargar logs"
+                logsErrorValue instanceof Error ? logsErrorValue.message : "Error al cargar registros"
               }
             />
 
@@ -199,7 +199,7 @@ const {
 
               {!job.job_result ? (
                 <p className="mt-4 text-sm text-slate-600">
-                  Este job todavía no tiene resultado final.
+                  Este trabajo todavía no tiene resultado final.
                 </p>
               ) : (
                 <div className="mt-4 space-y-2 text-sm">

@@ -37,7 +37,7 @@ export default function ScheduledTasksPage() {
     <AppShell>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Scheduled Tasks</h1>
+          <h1 className="text-2xl font-semibold text-slate-900">Programacion de Tareas</h1>
           <p className="mt-1 text-sm text-slate-600">
             Gestión de automatizaciones programadas.
           </p>
@@ -48,7 +48,7 @@ export default function ScheduledTasksPage() {
         {isLoading && (
           <div className="rounded-2xl bg-white p-6 shadow-sm">
             <p className="text-sm text-slate-600">
-              Cargando scheduled tasks...
+              Cargando tareas programadas...
             </p>
           </div>
         )}
@@ -58,7 +58,7 @@ export default function ScheduledTasksPage() {
             <p className="text-sm text-red-700">
               {error instanceof Error
                 ? error.message
-                : "Error al cargar scheduled tasks"}
+                : "Error al cargar tareas programadas"}
             </p>
           </div>
         )}
@@ -66,7 +66,7 @@ export default function ScheduledTasksPage() {
         {!isLoading && !isError && data && data.length === 0 && (
           <div className="rounded-2xl bg-white p-6 shadow-sm">
             <p className="text-sm text-slate-600">
-              No hay scheduled tasks registradas.
+              No hay tareas programadas registradas.
             </p>
           </div>
         )}

@@ -28,8 +28,8 @@ export default function JobLogsPanel({
   if (isLoading) {
     return (
       <section className="rounded-2xl bg-white p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-slate-900">Logs</h2>
-        <p className="mt-4 text-sm text-slate-600">Cargando logs...</p>
+        <h2 className="text-lg font-semibold text-slate-900">Registros</h2>
+        <p className="mt-4 text-sm text-slate-600">Cargando registros...</p>
       </section>
     );
   }
@@ -37,9 +37,9 @@ export default function JobLogsPanel({
   if (isError) {
     return (
       <section className="rounded-2xl border border-red-200 bg-red-50 p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-slate-900">Logs</h2>
+        <h2 className="text-lg font-semibold text-slate-900">Registros</h2>
         <p className="mt-4 text-sm text-red-700">
-          {errorMessage ?? "Error al cargar logs"}
+          {errorMessage ?? "Error al cargar registros"}
         </p>
       </section>
     );
@@ -48,9 +48,9 @@ export default function JobLogsPanel({
   if (logs.length === 0) {
     return (
       <section className="rounded-2xl bg-white p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-slate-900">Logs</h2>
+        <h2 className="text-lg font-semibold text-slate-900">Registros</h2>
         <p className="mt-4 text-sm text-slate-600">
-          Este job todavía no tiene logs registrados.
+          Este trabajo todavía no tiene resgistros.
         </p>
       </section>
     );
@@ -58,7 +58,7 @@ export default function JobLogsPanel({
 
   return (
     <section className="rounded-2xl bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-semibold text-slate-900">Logs</h2>
+      <h2 className="text-lg font-semibold text-slate-900">Registros</h2>
 
       <div className="mt-4 space-y-4">
         {logs.map((log) => (

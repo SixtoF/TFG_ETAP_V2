@@ -21,7 +21,7 @@ export default function DashboardPendingApprovals({ approvals }: Props) {
     <section className="rounded-2xl bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Approvals pendientes</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Aprobaciones pendientes</h2>
           <p className="mt-1 text-sm text-slate-600">
             Solicitudes pendientes de decisión.
           </p>
@@ -31,13 +31,13 @@ export default function DashboardPendingApprovals({ approvals }: Props) {
           href="/approvals"
           className="text-sm font-medium text-blue-700 hover:underline"
         >
-          Ir a approvals
+          Ir a aprobaciones
         </Link>
       </div>
 
       {approvals.length === 0 ? (
         <p className="mt-4 text-sm text-slate-600">
-          No hay approvals pendientes.
+          No hay aprobaciones pendientes.
         </p>
       ) : (
         <div className="mt-4 space-y-3">

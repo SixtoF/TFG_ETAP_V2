@@ -27,7 +27,7 @@ export default function JobsTable({ jobs }: Props) {
           <thead className="bg-slate-50">
             <tr className="text-left text-sm text-slate-600">
               <th className="px-4 py-3 font-medium">ID</th>
-              <th className="px-4 py-3 font-medium">Intent</th>
+              <th className="px-4 py-3 font-medium">Intento</th>
               <th className="px-4 py-3 font-medium">Estado</th>
               <th className="px-4 py-3 font-medium">Riesgo</th>
               <th className="px-4 py-3 font-medium">Creado</th>

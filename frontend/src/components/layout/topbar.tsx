@@ -48,12 +48,12 @@ export default function Topbar() {
             </p>
           </div>
 
-          {/* Boton de Logout con estilos de Tailwind para un aspecto profesional */}
+          {/* Boton de Logout con estilos de Tailwind */}
           <button
             onClick={handleLogout}
             className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition-all duration-200 hover:bg-slate-50 hover:border-slate-400 active:scale-95"
           >
-            Logout
+            Cerrar Sesion
           </button>
         </div>
       </div>

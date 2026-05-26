@@ -32,7 +32,7 @@ export default function JobsPage() {
     <AppShell>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Jobs</h1>
+          <h1 className="text-2xl font-semibold text-slate-900">Trabajos</h1>
           <p className="mt-1 text-sm text-slate-600">
             Lista de trabajos generados por ETAP.
           </p>
@@ -54,7 +54,7 @@ export default function JobsPage() {
 
         {!isLoading && !isError && data && data.length === 0 && (
           <div className="rounded-2xl bg-white p-6 shadow-sm">
-            <p className="text-sm text-slate-600">No hay jobs registrados.</p>
+            <p className="text-sm text-slate-600">No hay trabajos registrados.</p>
           </div>
         )}
 

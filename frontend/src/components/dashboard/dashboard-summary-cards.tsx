@@ -16,32 +16,32 @@ type SummaryCard = {
 export default function DashboardSummaryCards({ summary }: Props) {
   const cards: SummaryCard[] = [
     {
-      title: "Total jobs",
+      title: "Total trabajos",
       value: summary.totalJobs,
       href: "/jobs",
     },
     {
-      title: "Jobs en running",
+      title: "Trabajos en ejecucion",
       value: summary.runningJobs,
       href: "/jobs",
     },
     {
-      title: "Jobs pendientes de aprobación",
+      title: "Trabajos pendientes de aprobación",
       value: summary.approvalPendingJobs,
       href: "/approvals",
     },
     {
-      title: "Jobs fallidos",
+      title: "Trabajos fallidos",
       value: summary.failedJobs,
       href: "/jobs",
     },
     {
-      title: "Approvals pendientes",
+      title: "Aprobaciones pendientes",
       value: summary.pendingApprovals,
       href: "/approvals",
     },
     {
-      title: "Scheduled tasks activas",
+      title: "Programacion de tareas activas",
       value: summary.activeScheduledTasks,
       href: "/scheduled-tasks",
     },

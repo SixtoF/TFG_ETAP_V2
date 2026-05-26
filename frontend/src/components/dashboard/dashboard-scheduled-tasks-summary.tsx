@@ -20,7 +20,7 @@ export default function DashboardScheduledTasksSummary({
     <section className="rounded-2xl bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Scheduled tasks</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Tareas programadas</h2>
           <p className="mt-1 text-sm text-slate-600">
             Resumen de automatizaciones configuradas.
           </p>
@@ -30,13 +30,13 @@ export default function DashboardScheduledTasksSummary({
           href="/scheduled-tasks"
           className="text-sm font-medium text-blue-700 hover:underline"
         >
-          Ver scheduled tasks
+          Ver tareas programadas
         </Link>
       </div>
 
       {scheduledTasks.length === 0 ? (
         <p className="mt-4 text-sm text-slate-600">
-          No hay scheduled tasks registradas.
+          No hay tareas programadas registradas.
         </p>
       ) : (
         <div className="mt-4 overflow-x-auto">
@@ -45,7 +45,7 @@ export default function DashboardScheduledTasksSummary({
               <tr className="text-left text-sm text-slate-600">
                 <th className="px-4 py-3 font-medium">Nombre</th>
                 <th className="px-4 py-3 font-medium">Estado</th>
-                <th className="px-4 py-3 font-medium">Cron</th>
+                <th className="px-4 py-3 font-medium">Fecha/Cron</th>
                 <th className="px-4 py-3 font-medium">Próxima ejecución</th>
               </tr>
             </thead>

@@ -22,7 +22,7 @@ export default function DashboardRecentJobs({ jobs }: Props) {
     <section className="rounded-2xl bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900">Últimos jobs</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Últimos trabajos</h2>
           <p className="mt-1 text-sm text-slate-600">
             Trabajos recientes del sistema.
           </p>
@@ -37,14 +37,14 @@ export default function DashboardRecentJobs({ jobs }: Props) {
       </div>
 
       {jobs.length === 0 ? (
-        <p className="mt-4 text-sm text-slate-600">No hay jobs recientes.</p>
+        <p className="mt-4 text-sm text-slate-600">No hay trabajos recientes.</p>
       ) : (
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full border-collapse">
             <thead className="bg-slate-50">
               <tr className="text-left text-sm text-slate-600">
                 <th className="px-4 py-3 font-medium">ID</th>
-                <th className="px-4 py-3 font-medium">Intent</th>
+                <th className="px-4 py-3 font-medium">Intento</th>
                 <th className="px-4 py-3 font-medium">Estado</th>
                 <th className="px-4 py-3 font-medium">Riesgo</th>
                 <th className="px-4 py-3 font-medium">Creado</th>

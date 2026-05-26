@@ -59,7 +59,7 @@ export default function CreateScheduledTaskForm() {
 
   return (
     <section className="rounded-2xl bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-semibold text-slate-900">Nueva scheduled task</h2>
+      <h2 className="text-lg font-semibold text-slate-900">Nueva tarea programada</h2>
       <p className="mt-1 text-sm text-slate-600">
         Crea una automatización programada usando expresión cron.
       </p>
@@ -78,7 +78,7 @@ export default function CreateScheduledTaskForm() {
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium">Timezone</label>
+            <label className="mb-1 block text-sm font-medium">ZonaHoraria</label>
             <input
               className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-500"
               {...register("timezone", {
@@ -102,11 +102,11 @@ export default function CreateScheduledTaskForm() {
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-slate-900">Command text</label>
+          <label className="mb-1 block text-sm font-medium text-slate-900">Texto del comando</label>
           <textarea
             className="min-h-24 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-slate-500"
             {...register("command_text", {
-              required: "El command_text es obligatorio",
+              required: "El texto es obligatorio",
             })}
           />
           <p className="mt-1 text-xs text-slate-500">
@@ -145,7 +145,7 @@ export default function CreateScheduledTaskForm() {
 
         {createMutation.isSuccess && (
           <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-            Scheduled task: Tarea programada, creada correctamente.
+            Programacion de Tarea: Tarea programada, creada correctamente.
           </div>
         )}
 
@@ -160,7 +160,7 @@ export default function CreateScheduledTaskForm() {
           disabled={isSubmitting || createMutation.isPending}
           className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {isSubmitting || createMutation.isPending ? "Creando..." : "Crear task"}
+          {isSubmitting || createMutation.isPending ? "Creando..." : "Crear tarea"}
         </button>
       </form>
     </section>

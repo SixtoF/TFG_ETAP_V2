@@ -32,14 +32,14 @@ export default function ApprovalsTable({ approvals, canResolve }: Props) {
           >
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               <div>
-                <h3 className="text-sm font-medium text-slate-500">Approval ID</h3>
+                <h3 className="text-sm font-medium text-slate-500">ID Aprobacion</h3>
                 <p className="mt-2 font-mono text-sm text-slate-800">
                   {shortenId(approval.id)}
                 </p>
               </div>
 
               <div>
-                <h3 className="text-sm font-medium text-slate-500">Job ID</h3>
+                <h3 className="text-sm font-medium text-slate-500">ID Trabajo</h3>
                 <div className="mt-2">
                   <Link
                     href={`/jobs/${approval.job_id}`}
